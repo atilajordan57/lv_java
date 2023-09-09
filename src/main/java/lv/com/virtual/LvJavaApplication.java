@@ -8,6 +8,7 @@ public class LvJavaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LvJavaApplication.class, args);
+		//teste
 	}
 
 }
