@@ -24,7 +24,7 @@ import lv.com.virtual.enums.StatusContaPagar;
 @Entity
 @Table(name = "conta_pagar")
 @SequenceGenerator(name = "seq_conta_pagar", sequenceName = "seq_conta_pagar", allocationSize = 1, initialValue = 1)
-public class Contapagar implements Serializable {
+public class ContaPagar implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -140,8 +140,10 @@ public class Contapagar implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Contapagar other = (Contapagar) obj;
+		ContaPagar other = (ContaPagar) obj;
 		return Objects.equals(id, other.id);
 	}
+
+
 
 }
