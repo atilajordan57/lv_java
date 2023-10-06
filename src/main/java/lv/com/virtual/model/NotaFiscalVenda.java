@@ -37,10 +37,10 @@ public class NotaFiscalVenda implements Serializable {
 	private String tipo;
 
 	
-	@Column(columnDefinition = "text") //definido como text para ser sem limite 
+	@Column(columnDefinition = "text", nullable = false) //definido como text para ser sem limite 
 	private String xml;
 
-	@Column(columnDefinition = "text") //definido como text para ser sem limite 
+	@Column(columnDefinition = "text", nullable = false) //definido como text para ser sem limite 
 	private String pdf;
 	
 	@OneToOne

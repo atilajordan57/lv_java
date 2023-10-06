@@ -15,6 +15,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.ForeignKey;
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 
 @Entity
@@ -43,6 +44,7 @@ public class VendaCompraLojaVirtual implements Serializable {
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "endereco_cobranca_fk"))
 	private Endereco enderecoCobranca;
 	
+	@Column(nullable = false)
 	private BigDecimal valorTotal;
 
 	private BigDecimal valorDesconto;
@@ -58,16 +60,20 @@ public class VendaCompraLojaVirtual implements Serializable {
 	private NotaFiscalVenda notaFiscalVenda;
 	
 	@ManyToOne
-	@JoinColumn(name = "cup_desc_id", nullable = false,
+	@JoinColumn(name = "cup_desc_id",
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "cup_desc_fk"))
 	private CupDesc cupDesc;
 	
+	@Column(nullable = false)
 	private BigDecimal valorFrete;
 
+	@Column(nullable = false)
 	private Integer diaEntrega;
 
+	@Column(nullable = false)
 	private Date dataVenda;
 
+	@Column(nullable = false)
 	private Date dataEntrega;
 
 	public Long getId() {
