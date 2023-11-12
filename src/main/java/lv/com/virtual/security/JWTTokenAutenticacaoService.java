@@ -1,5 +1,6 @@
 package lv.com.virtual.security;
 
+import java.io.IOException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 import lv.com.virtual.ApplicationContextLoad;
 import lv.com.virtual.model.Usuario;
 import lv.com.virtual.repository.UsuarioRepository;
@@ -56,9 +59,11 @@ public class JWTTokenAutenticacaoService {
 	}
 	
 	/*Retorna o usuário validado com token ou caso nao seja valido retona null*/
-	public Authentication getAuthetication(HttpServletRequest request, HttpServletResponse response) {
+	public Authentication getAuthetication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String token = request.getHeader(HEADER_STRING);
+		
+		try {
 		
 		if (token != null) {
 			
@@ -87,7 +92,16 @@ public class JWTTokenAutenticacaoService {
 			
 		}
 		
-		liberacaoCors(response);
+		}catch (SignatureException e) {
+			response.getWriter().write("Token está inválido.");
+
+		}catch (ExpiredJwtException e) {
+			response.getWriter().write("Token está expirado, efetue o login novamente.");
+		}
+		finally {
+			liberacaoCors(response); //sempre é bom colocar esse finally pra nao dar problema de cors
+		}
+		
 		return null;
 	}
 	
